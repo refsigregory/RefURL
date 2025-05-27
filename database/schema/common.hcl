@@ -1,12 +1,12 @@
 schema "public" {
-    comment = "Main schema for RefURL"
+  comment = "RefURL application schema"
 }
 
 table "users" {
   schema = schema.public
   column "id" {
-    type = int
-    auto_increment = true
+    type = bigint
+    identity {}
   }
   column "email" {
     type = varchar(255)
@@ -18,11 +18,13 @@ table "users" {
   }
   column "created_at" {
     type = timestamp
+    null = false
     default = sql("CURRENT_TIMESTAMP")
   }
   column "updated_at" {
     type = timestamp
-    default = sql("CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
+    null = false
+    default = sql("CURRENT_TIMESTAMP")
   }
   primary_key {
     columns = [column.id]
@@ -36,11 +38,11 @@ table "users" {
 table "urls" {
   schema = schema.public
   column "id" {
-    type = int
-    auto_increment = true
+    type = bigint
+    identity {}
   }
   column "owner" {
-    type = int
+    type = bigint
     null = true
   }
   column "original_url" {
@@ -56,22 +58,25 @@ table "urls" {
     null = true
   }
   column "clicks" {
-    type = int
+    type = bigint
+    null = false
     default = 0
   }
   column "created_at" {
     type = timestamp
+    null = false
     default = sql("CURRENT_TIMESTAMP")
   }
   column "clicks_at" {
     type = timestamp
+    null = false
     default = sql("CURRENT_TIMESTAMP")
   }
   primary_key {
     columns = [column.id]
   }
   foreign_key "fk_user" {
-    columns = [column.user_id]
+    columns = [column.owner]
     ref_columns = [table.users.column.id]
     on_delete = SET_NULL
   }
@@ -84,8 +89,8 @@ table "urls" {
 table "configs" {
   schema = schema.public
   column "id" {
-    type = int
-    auto_increment = true
+    type = bigint
+    identity {}
   }
   column "CONFIG_NAME" {
     type = varchar(255)
@@ -97,7 +102,6 @@ table "configs" {
   }
   primary_key {
     columns = [column.id]
-    name = "pk_config"
   }
   index "idx_config_name" {
     unique = true
