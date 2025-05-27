@@ -7,7 +7,7 @@ INSERT INTO urls (owner, original_url, short_code, title, clicks) VALUES
 
     -- Demo user URLs (user id: 2)
     (2, 'https://portfolio.ref.si', 'portfolio', 'Portfolio', 0),
-    (2, 'https://ref.si/files/cv.pdf', 'download-cv', 'Download My CV', 0),
+    (2, 'https://ref.si/files/cv.pdf', 'getCV', 'Download My CV', 0),
     
     -- Public URLs (no owner)
     (NULL, 'https://www.frenlog.com', 'frenlog', 'FrenLog!', 0);

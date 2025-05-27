@@ -147,6 +147,42 @@ atlas migrate apply \
 
 echo "✅ Database initialized successfully!"
 
+# Run seeds if they exist
+if [ -d "database/seeds/common" ] && [ "$(ls -A database/seeds/common/*.sql 2>/dev/null)" ]; then
+    echo "Running database seeds..."
+    
+    case ${DB_DRIVER} in
+        postgres)
+            for seed_file in database/seeds/common/*.sql; do
+                if [ -f "$seed_file" ]; then
+                    echo "Running seed: $(basename "$seed_file")"
+                    PGPASSWORD="${DB_PASSWORD}" psql -h "${DB_HOST}" -p "${DB_PORT}" -U "${DB_USER}" -d "${DB_NAME}" -f "$seed_file"
+                fi
+            done
+            ;;
+        mysql)
+            for seed_file in database/seeds/common/*.sql; do
+                if [ -f "$seed_file" ]; then
+                    echo "Running seed: $(basename "$seed_file")"
+                    mysql -h "${DB_HOST}" -P "${DB_PORT}" -u "${DB_USER}" -p"${DB_PASSWORD}" "${DB_NAME}" < "$seed_file"
+                fi
+            done
+            ;;
+        sqlite)
+            for seed_file in database/seeds/common/*.sql; do
+                if [ -f "$seed_file" ]; then
+                    echo "Running seed: $(basename "$seed_file")"
+                    sqlite3 "${DB_NAME}.db" < "$seed_file"
+                fi
+            done
+            ;;
+    esac
+    
+    echo "✅ Seeds applied successfully!"
+else
+    echo "No seeds found in database/seeds/common/"
+fi
+
 # Show status
 echo "Migration status:"
 atlas migrate status \

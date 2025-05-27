@@ -1,6 +1,6 @@
 -- Seed application configuration settings
 
-INSERT INTO configs (CONFIG_NAME, CONFIG_VALUE) VALUES
+INSERT INTO configs ("CONFIG_NAME", "CONFIG_VALUE") VALUES
     ('APP_NAME', 'RefURL'),
     ('APP_VERSION', '1.0.0'),
     ('APP_DESCRIPTION', 'REF URL Shortener Service'),
