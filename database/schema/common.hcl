@@ -12,6 +12,10 @@ table "users" {
     type = varchar(255)
     null = false
   }
+  column "password" {
+    type = varchar(255)
+    null = false
+  }
   column "name" {
     type = varchar(255)
     null = false
