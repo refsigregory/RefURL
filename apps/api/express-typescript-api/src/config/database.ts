@@ -1,10 +1,17 @@
-import { Sequelize } from 'sequelize';
+import { Sequelize, Dialect } from 'sequelize';
 import { env } from './env';
 import logger from '../utils/logger';
 
-const sequelize = new Sequelize(env.DATABASE_URL || '', {
-  dialect: 'postgres',
-  logging: (msg) => logger.debug(msg),
+const getDatabaseUrl = () => {
+  if (env.DATABASE_URL) return env.DATABASE_URL;
+  
+  const { DB_DRIVER, DB_USER, DB_PASSWORD, DB_HOST, DB_PORT, DB_NAME, DB_SSL_MODE } = env;
+  return `${DB_DRIVER}://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}?sslmode=${DB_SSL_MODE}`;
+};
+
+const sequelize = new Sequelize(getDatabaseUrl(), {
+  dialect: env.DB_DRIVER as Dialect,
+  logging: (msg: string) => logger.debug(msg),
   pool: {
     max: 5,
     min: 0,
@@ -12,9 +19,9 @@ const sequelize = new Sequelize(env.DATABASE_URL || '', {
     idle: 10000
   },
   define: {
-    timestamps: true,
-    underscored: true,
-    paranoid: true
+    timestamps: true, // Enable timestamps createdAt and updatedAt
+    underscored: true, // Use snake_case for column names
+    paranoid: false, // Enable/Disable soft deletes
   }
 });
 
@@ -28,4 +35,4 @@ export const testConnection = async () => {
   }
 };
 
-export default sequelize; 
+export default sequelize;

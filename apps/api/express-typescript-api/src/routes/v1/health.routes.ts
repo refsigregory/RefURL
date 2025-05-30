@@ -1,10 +1,11 @@
 import { Router } from 'express';
 import { asyncHandler } from '../../middleware/errorHandler';
-import * as healthController from '../../controllers/health';
+import * as healthController from '../../controllers/health.controller';
 
 const router = Router();
 
-router.get('/', asyncHandler(healthController.getHealth));
-router.get('/detailed', asyncHandler(healthController.getDetailedHealth));
+// Health routes
+router.get('/', asyncHandler(healthController.getStatus));
+router.get('/detailed', asyncHandler(healthController.getDetailedStatus));
 
-export default router; 
+export default router;

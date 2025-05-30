@@ -8,7 +8,13 @@ const envSchema = z.object({
   
   // Database
   DATABASE_URL: z.string().optional(),
-  REDIS_URL: z.string().optional(),
+  DB_DRIVER: z.enum(['postgres', 'mysql', 'sqlite']).default('postgres'),
+  DB_HOST: z.string().default('localhost'),
+  DB_PORT: z.string().transform(Number).default('5432'),
+  DB_NAME: z.string().default('refurl'),
+  DB_USER: z.string().default('postgres'),
+  DB_PASSWORD: z.string().default('password'),
+  DB_SSL_MODE: z.enum(['disable', 'require', 'verify-ca', 'verify-full']).default('disable'),
   
   // JWT
   JWT_SECRET: z.string().default('your-secret-key'),

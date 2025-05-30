@@ -2,14 +2,9 @@ import { Router, Request, Response } from 'express';
 import { body } from 'express-validator';
 import { validate } from '../middleware/validation';
 import { asyncHandler } from '../middleware/errorHandler';
-import * as healthController from '../controllers/health';
 import v1Routes from './v1';
 
 const router = Router();
-
-// Health routes
-router.get('/health', asyncHandler(healthController.getHealth));
-router.get('/health/detailed', asyncHandler(healthController.getDetailedHealth));
 
 // Example API route with validation
 router.post('/test', 

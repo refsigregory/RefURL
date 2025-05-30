@@ -66,17 +66,6 @@ if (env.NODE_ENV !== 'test') {
 // Static files
 app.use(express.static(path.join(__dirname, '../public')));
 
-// Health check
-app.get('/health', (req: Request, res: Response) => {
-  res.status(200).json({
-    status: 'OK',
-    timestamp: new Date().toISOString(),
-    uptime: process.uptime(),
-    environment: env.NODE_ENV,
-    version: process.env.npm_package_version || '1.0.0',
-  });
-});
-
 // API routes
 app.use(env.API_PREFIX, routes);
 
