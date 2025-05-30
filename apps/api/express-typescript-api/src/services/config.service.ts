@@ -28,16 +28,19 @@ Config.init(
       type: DataTypes.STRING(255),
       allowNull: false,
       unique: true,
+      field: 'CONFIG_NAME'
     },
     CONFIG_VALUE: {
       type: DataTypes.STRING(255),
       allowNull: false,
+      field: 'CONFIG_VALUE'
     },
   },
   {
     sequelize,
     tableName: 'configs',
     modelName: 'Config',
+    timestamps: false
   }
 );
 
