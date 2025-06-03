@@ -1,15 +1,10 @@
-import { Request, Response, NextFunction } from 'express';
+import { Response, NextFunction } from 'express';
 import { JwtUtil } from '../utils/jwt';
 import { UnauthorizedError } from '../types/errors';
-
-export interface AuthenticatedRequest extends Request {
-  user?: {
-    userId: string;
-  };
-}
+import { Request } from '../types/express';
 
 export const authenticate = (
-  req: AuthenticatedRequest,
+  req: Request,
   res: Response,
   next: NextFunction
 ): void => {
@@ -23,7 +18,7 @@ export const authenticate = (
     const token = authHeader.substring(7);
     const payload = JwtUtil.verifyToken(token);
     
-    req.user = { userId: payload.userId };
+    req.user = { userId: parseInt(payload.userId, 10) };
     next();
   } catch (error) {
     next(error);
@@ -31,7 +26,7 @@ export const authenticate = (
 };
 
 export const optionalAuth = (
-  req: AuthenticatedRequest,
+  req: Request,
   res: Response,
   next: NextFunction
 ): void => {
@@ -41,7 +36,7 @@ export const optionalAuth = (
     if (authHeader && authHeader.startsWith('Bearer ')) {
       const token = authHeader.substring(7);
       const payload = JwtUtil.verifyToken(token);
-      req.user = { userId: payload.userId };
+      req.user = { userId: parseInt(payload.userId, 10) };
     }
     
     next();

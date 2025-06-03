@@ -3,40 +3,28 @@ import sequelize from '../config/database';
 
 interface UrlAttributes {
   id: number;
-  owner?: number;
-  originalUrl: string;
-  shortCode: string;
-  title?: string;
+  owner: number | null;
+  original_url: string;
+  short_code: string;
+  title: string | null;
   clicks: number;
-  createdAt: Date;
-  clicksAt: Date;
+  created_at: Date;
+  clicks_at: Date;
 }
 
-interface UrlCreationAttributes extends Optional<UrlAttributes, 'id' | 'clicks' | 'createdAt' | 'clicksAt'> {}
+interface UrlCreationAttributes extends Optional<UrlAttributes, 'id' | 'clicks' | 'created_at' | 'clicks_at'> {}
 
-export class Url extends Model<UrlAttributes, UrlCreationAttributes> implements UrlAttributes {
+class Url extends Model<UrlAttributes, UrlCreationAttributes> implements UrlAttributes {
   public id!: number;
-  public owner!: number;
-  public originalUrl!: string;
-  public shortCode!: string;
-  public title!: string;
+  public owner!: number | null;
+  public original_url!: string;
+  public short_code!: string;
+  public title!: string | null;
   public clicks!: number;
-  public createdAt!: Date;
-  public clicksAt!: Date;
+  public created_at!: Date;
+  public clicks_at!: Date;
 
-  public readonly updatedAt!: Date;
-
-  // Add static methods
-  public static async findByShortCode(shortCode: string): Promise<Url | null> {
-    return this.findOne({ where: { shortCode } });
-  }
-
-  public static async findByOwner(ownerId: number): Promise<Url[]> {
-    return this.findAll({ 
-      where: { owner: ownerId },
-      order: [['createdAt', 'DESC']]
-    });
-  }
+  public readonly updated_at!: Date;
 }
 
 Url.init(
@@ -54,11 +42,11 @@ Url.init(
         key: 'id',
       },
     },
-    originalUrl: {
+    original_url: {
       type: DataTypes.TEXT,
       allowNull: false,
     },
-    shortCode: {
+    short_code: {
       type: DataTypes.STRING(10),
       allowNull: false,
       unique: true,
@@ -72,12 +60,12 @@ Url.init(
       allowNull: false,
       defaultValue: 0,
     },
-    createdAt: {
+    created_at: {
       type: DataTypes.DATE,
       allowNull: false,
       defaultValue: DataTypes.NOW,
     },
-    clicksAt: {
+    clicks_at: {
       type: DataTypes.DATE,
       allowNull: false,
       defaultValue: DataTypes.NOW,
@@ -87,6 +75,8 @@ Url.init(
     sequelize,
     tableName: 'urls',
     modelName: 'Url',
+    timestamps: true,
+    underscored: true,
   }
 );
 

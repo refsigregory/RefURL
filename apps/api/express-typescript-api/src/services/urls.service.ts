@@ -4,36 +4,36 @@ import logger from '../utils/logger';
 import Url from '../models/url.model';
 
 export interface CreateUrlData {
-  originalUrl: string;
+  original_url: string;
   title?: string;
-  ownerId?: number;
+  owner_id?: number;
 }
 
 export interface UrlResponse {
   id: number;
-  originalUrl: string;
-  shortCode: string;
+  original_url: string;
+  short_code: string;
   title?: string;
   clicks: number;
-  createdAt: Date;
-  clicksAt: Date;
+  created_at: Date;
+  clicks_at: Date;
 }
 
 export class UrlsService {
   async createUrl(data: CreateUrlData): Promise<UrlResponse> {
     try {
       // Generate a unique short code
-      const shortCode = nanoid(6);
+      const short_code = nanoid(6);
 
       // Create URL record
       const url = await Url.create({
-        originalUrl: data.originalUrl,
-        shortCode,
+        original_url: data.original_url,
+        short_code,
         title: data.title,
-        owner: data.ownerId,
+        owner: data.owner_id,
       });
 
-      logger.info(`URL created: ${shortCode} -> ${data.originalUrl}`);
+      logger.info(`URL created: ${short_code} -> ${data.original_url}`);
 
       return this.mapToResponse(url);
     } catch (error) {
@@ -42,9 +42,9 @@ export class UrlsService {
     }
   }
 
-  async getUrlByShortCode(shortCode: string): Promise<UrlResponse> {
+  async getUrlByShortCode(short_code: string): Promise<UrlResponse> {
     try {
-      const url = await Url.findByShortCode(shortCode);
+      const url = await Url.findOne({ where: { short_code } });
 
       if (!url) {
         throw new NotFoundError('URL not found');
@@ -57,27 +57,30 @@ export class UrlsService {
     }
   }
 
-  async incrementClicks(shortCode: string): Promise<void> {
+  async incrementClicks(short_code: string): Promise<void> {
     try {
-      const url = await Url.findByShortCode(shortCode);
+      const url = await Url.findOne({ where: { short_code } });
 
       if (!url) {
         throw new NotFoundError('URL not found');
       }
 
       await url.increment('clicks');
-      await url.update({ clicksAt: new Date() });
+      await url.update({ clicks_at: new Date() });
       
-      logger.info(`Clicks incremented for URL: ${shortCode}`);
+      logger.info(`Clicks incremented for URL: ${short_code}`);
     } catch (error) {
       logger.error('URL clicks increment error:', error);
       throw error;
     }
   }
 
-  async getUserUrls(userId: number): Promise<UrlResponse[]> {
+  async getUserUrls(user_id: number): Promise<UrlResponse[]> {
     try {
-      const urls = await Url.findByOwner(userId);
+      const urls = await Url.findAll({ 
+        where: { owner: user_id },
+        order: [['created_at', 'DESC']]
+      });
       return urls.map(url => this.mapToResponse(url));
     } catch (error) {
       logger.error('User URLs retrieval error:', error);
@@ -85,15 +88,30 @@ export class UrlsService {
     }
   }
 
+  async deleteUrl(id: number, owner_id: number): Promise<boolean> {
+    try {
+      const deleted = await Url.destroy({
+        where: {
+          id,
+          owner: owner_id
+        }
+      });
+      return deleted > 0;
+    } catch (error) {
+      logger.error('URL deletion error:', error);
+      throw error;
+    }
+  }
+
   private mapToResponse(url: Url): UrlResponse {
     return {
       id: url.id,
-      originalUrl: url.originalUrl,
-      shortCode: url.shortCode,
-      title: url.title,
+      original_url: url.original_url,
+      short_code: url.short_code,
+      title: url.title || "",
       clicks: url.clicks,
-      createdAt: url.createdAt,
-      clicksAt: url.clicksAt,
+      created_at: url.created_at,
+      clicks_at: url.clicks_at,
     };
   }
 }
