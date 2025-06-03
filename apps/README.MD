@@ -4,17 +4,18 @@ A multi-backend URL shortener service with support for multiple frameworks.
 
 ## TODO
 
-- [x] Express JS (TypeScript)
-- [ ] Laravel
+- [x] Node JS - Express (TypeScript)
 - [ ] Go
-- [ ] Python Flask
+- [ ] Java: Spring Boot
+- [ ] PHP: Laravel
+- [ ] Python: Flask
 
 # Documentation
 
 ## TypeScript Backend Setup
 
 ### Prerequisites
-- Node.js (v14 or higher)
+- Node.js (v20 or higher)
 - npm or yarn
 - PostgreSQL database
 - Atlas CLI (for database migrations)
