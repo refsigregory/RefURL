@@ -21,6 +21,9 @@ A multi-backend URL shortener service with support for multiple frameworks. This
 
 > **Each backend has its own README with setup and development instructions. Please refer to the appropriate README for details.**
 
+# API Documentation
+- Postman: https://www.postman.com/speeding-crescent-956789/refurl/collection/a5xv47z/refurl
+
 ## Quick Start
 
 1. Clone the repository:
