@@ -13,11 +13,13 @@ A multi-backend URL shortener service with support for multiple frameworks. This
 
 ## Backend Implementations
 
-- [x] Node JS - Express (TypeScript)
+- [x] Node JS - Express (TypeScript) ([setup instructions](./apps/api/express-typescript-api/README.md))
 - [ ] Go
 - [ ] Java: Spring Boot
 - [ ] PHP: Laravel
 - [ ] Python: Flask
+
+> **Each backend has its own README with setup and development instructions. Please refer to the appropriate README for details.**
 
 ## Quick Start
 
@@ -27,30 +29,9 @@ git clone https://github.com/refsigregory/refurl.git
 cd refurl
 ```
 
-2. Set up the database:
-```bash
-# Create database
-createdb refurl
-
-# Run migrations
-cd database
-atlas migrate apply
-```
-
-3. Configure environment:
-```bash
-# Copy example env file
-cp env.example .env
-
-# Edit .env with your configuration
-```
-
-4. Start the Express backend:
-```bash
-cd apps/api/express-typescript-api
-npm install
-npm run dev
-```
+2. Choose a backend implementation and follow its setup instructions:
+   - [Express TypeScript Backend](./apps/api/express-typescript-api/README.md)
+   - More backends coming soon...
 
 ## Documentation
 
@@ -73,6 +54,7 @@ For detailed documentation, please refer to the [Documentation Index](./docs/REA
 │   ├── schema/           # HCL schema definitions
 │   └── seeds/            # Database seed data
 ├── shared/                # Shared utilities and types
+│   └── scripts/          # Database and utility scripts
 ├── deployment/            # Deployment configurations
 └── docs/                  # Project documentation
 ```
@@ -84,4 +66,3 @@ Please read our [Contributing Guide](./docs/contributing.md) before submitting p
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
