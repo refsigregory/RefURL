@@ -30,7 +30,7 @@ Welcome to the RefURL documentation. This documentation is organized into severa
 
 ```
 refurl/
-├── apps/               # Application code
+├── apps/              # Application code
 ├── database/          # Database migrations and schema
 ├── docs/              # Documentation
 ├── shared/            # Shared utilities and types

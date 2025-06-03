@@ -50,16 +50,16 @@ For detailed documentation, please refer to the [Documentation Index](./docs/REA
 
 ```
 .
-├── apps/                    # Backend implementations
-│   └── api/                # Express TypeScript API
-├── database/               # Database schema and migrations
-│   ├── migrations/        # Atlas migrations
-│   ├── schema/           # HCL schema definitions
-│   └── seeds/            # Database seed data
-├── shared/                # Shared utilities and types
-│   └── scripts/          # Database and utility scripts
-├── deployment/            # Deployment configurations
-└── docs/                  # Project documentation
+├── apps/                       # Backend implementations
+│   └── api/                    # Express TypeScript API
+├── database/                   # Database schema and migrations
+│   ├── migrations/             # Atlas migrations
+│   ├── schema/                 # HCL schema definitions
+│   └── seeds/                  # Database seed data
+├── shared/                     # Shared utilities and types
+│   └── scripts/                # Database and utility scripts
+├── deployment/                 # Deployment configurations
+└── docs/                       # Project documentation
 ```
 
 ## Contributing
