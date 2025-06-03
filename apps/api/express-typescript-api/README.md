@@ -15,23 +15,39 @@
 
 2. Configure environment variables:
    ```bash
+   # Option 1: Copy to root directory (recommended)
+   cp ../../../../env.example ../../../../.env
+   
+   # Option 2: Copy to current directory
    cp ../../../../env.example .env
+   
    # Edit .env with your configuration
    ```
 
-3. Initialize the database (recommended):
-   ```bash
-   bash ../../../../shared/scripts/init-db.sh
-   ```
-   - To use MySQL or SQLite:
+3. Set up the database:
+   - For detailed database setup instructions, see the [Database Guide](../../../docs/database.md)
+   - Quick setup (recommended):
      ```bash
-     bash ../../../../shared/scripts/init-db.sh mysql
-     bash ../../../../shared/scripts/init-db.sh sqlite
+     # From the root directory
+     bash shared/scripts/init-db.sh
+     
+     # Or from current directory
+     cd ../../../../ && bash shared/scripts/init-db.sh
      ```
 
-4. Start the development server:
+4. Update default passwords:
    ```bash
+   # Make sure .env is properly configured with INITIAL_USER_PASSWORD
+   npm run update-passwords
+   ```
+
+5. Start the development server:
+   ```bash
+   # Option 1: Using local .env
    npm run dev
+   
+   # Option 2: Using root .env
+   source ../../../../.env && npm run dev
    ```
 
 ## Development
@@ -77,12 +93,7 @@ express-typescript-api/
 
 ### Database
 
-This backend uses Sequelize with PostgreSQL by default. The database schema and migrations are managed using Atlas.
-
-To switch database drivers:
-```bash
-bash ../../../../shared/scripts/switch-db.sh <postgres|mysql|sqlite>
-```
+This backend uses Sequelize with PostgreSQL by default. For complete database setup and management instructions, see the [Database Guide](../../../docs/database.md).
 
 ### Testing
 
@@ -101,6 +112,7 @@ npm run test:coverage
 #### Common Issues
 
 1. **Database Connection Issues**
+   - See [Database Troubleshooting](../../../docs/database.md#troubleshooting)
    - Verify database credentials in `.env`
    - Ensure database server is running
    - Check network connectivity
