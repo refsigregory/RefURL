@@ -41,6 +41,55 @@ export const getUserUrls = async (req: Request, res: Response) => {
   });
 };
 
+export const addUrl = async (req: Request, res: Response) => {
+  const { original_url, title } = req.body;
+  const owner_id = req.user?.userId;
+  
+  const url = await urlService.createUrl({
+    original_url,
+    title,
+    owner_id
+  });
+
+  res.status(201).json({
+    success: true,
+    data: url
+  });
+};
+
+export const getUrlById = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const url = await urlService.getUrlById(parseInt(id));
+  res.json({
+    success: true,
+    data: url
+  });
+};
+
+export const updateUrl = async (req: Request, res: Response) => {
+  if (!req.user?.userId) {
+    throw new AppError('Authentication required', 401);
+  }
+
+  const { id } = req.params;
+  const { original_url, title } = req.body;
+
+  const updatedUrl = await urlService.updateUrl(parseInt(id), {
+    original_url,
+    title,
+    owner_id: req.user.userId
+  });
+
+  if (!updatedUrl) {
+    throw new AppError('URL not found or unauthorized', 404);
+  }
+
+  res.json({
+    success: true,
+    data: updatedUrl
+  });
+};
+
 export const deleteUrl = async (req: Request, res: Response) => {
   if (!req.user?.userId) {
     throw new AppError('Authentication required', 401);
@@ -57,7 +106,7 @@ export const deleteUrl = async (req: Request, res: Response) => {
     success: true,
     message: 'URL deleted successfully'
   });
-}; 
+};
 
 export const testPerformance = async (req: Request, res: Response) => {
   await urlService.testPerformance();

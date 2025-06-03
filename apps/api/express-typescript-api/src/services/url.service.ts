@@ -10,9 +10,9 @@ export class UrlService {
       const short_code = nanoid(6);
       const url = await Url.create({
         original_url: data.original_url,
-        short_code,
+        short_code: data?.short_code || short_code,
         title: data.title,
-        owner: data.owner_id,
+        owner: data.owner_id || "",
       } as UrlAttributes);
 
       return this.mapToResponse(url);
@@ -33,6 +33,19 @@ export class UrlService {
       return urls.map(this.mapToResponse);
     } catch (error) {
       logger.error('User URLs retrieval error:', error);
+      throw error;
+    }
+  }
+
+  async getUrlById(id: number): Promise<UrlResponse> {
+    try {
+      const url = await Url.findOne({ where: { id }, raw: true }) as UrlAttributes | null;
+      if (!url) {
+        throw new NotFoundError('URL not found');
+      }
+      return this.mapToResponse(url);
+    } catch (error) {
+      logger.error('URL retrieval error:', error);
       throw error;
     }
   }
@@ -69,6 +82,31 @@ export class UrlService {
       logger.info(`Clicks incremented for URL: ${short_code}`);
     } catch (error) {
       logger.error('URL clicks increment error:', error);
+      throw error;
+    }
+  }
+
+  async updateUrl(id: number, data: { original_url?: string; title?: string; owner_id: number }): Promise<UrlResponse | null> {
+    try {
+      const url = await Url.findOne({
+        where: {
+          id,
+          owner: data.owner_id
+        }
+      });
+
+      if (!url) {
+        return null;
+      }
+
+      const updateData: Partial<UrlAttributes> = {};
+      if (data.original_url) updateData.original_url = data.original_url;
+      if (data.title) updateData.title = data.title;
+
+      await url.update(updateData);
+      return this.mapToResponse(url.get({ plain: true }));
+    } catch (error) {
+      logger.error('URL update error:', error);
       throw error;
     }
   }

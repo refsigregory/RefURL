@@ -23,4 +23,5 @@ export interface CreateUrlData {
   original_url: string;
   title?: string;
   owner_id?: number;
+  short_code?: string;
 }

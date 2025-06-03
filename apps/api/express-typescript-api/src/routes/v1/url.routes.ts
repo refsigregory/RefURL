@@ -12,9 +12,6 @@ router.get('/go/:shortCode',
   asyncHandler(urlController.redirectToOriginal)
 );
 
-// Protected routes
-router.use(authenticate);
-
 router.post('/shorten',
   validate([
     body('original_url').isURL().withMessage('Valid URL is required'),
@@ -23,14 +20,36 @@ router.post('/shorten',
   asyncHandler(urlController.shortenUrl)
 );
 
+// Protected routes
+router.use(authenticate);
+
+router.post('/',
+  validate([
+    body('original_url').isURL().withMessage('Valid URL is required'),
+    body('title').optional().isString().withMessage('Title must be a string'),
+    body('short_code').optional().isString().withMessage('Short code must be a string'),
+  ]),
+  asyncHandler(urlController.addUrl)
+);
+
 router.get('/',
   asyncHandler(urlController.getUserUrls)
 );
 
-router.delete('/:id',
+router.get('/:id',
+  asyncHandler(urlController.getUrlById)
+);
+
+router.put('/:id',
   validate([
-    body('id').isInt().withMessage('Valid URL ID is required'),
+    body('original_url').isURL().withMessage('Valid URL is required'),
+    body('title').optional().isString().withMessage('Title must be a string'),
+    body('short_code').optional().isString().withMessage('Short code must be a string'),
   ]),
+  asyncHandler(urlController.updateUrl)
+);
+
+router.delete('/:id',
   asyncHandler(urlController.deleteUrl)
 );
 
