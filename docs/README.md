@@ -1,57 +1,41 @@
 # RefURL Documentation
 
-## Table of Contents
+Welcome to the RefURL documentation. This documentation is organized into several key sections to help you understand and work with the project effectively.
 
-1. [Getting Started](./getting-started.md)
-   - Prerequisites
-   - Installation
-   - Quick Start
+## Quick Links
 
-2. [Architecture](./architecture.md)
-   - System Overview
-   - Backend Services
-   - Database Design
-   - API Design
+- [Getting Started](./getting-started.md)
+- [Database Guide](./database.md)
+- [API Reference](./api-reference.md)
+- [Security Guide](./security.md)
+- [Deployment Guide](./deployment.md)
 
-3. [Development](./development.md)
-   - Local Development
-   - Code Style
-   - Testing
-   - Debugging
+## Documentation Structure
 
-4. [Database](./database.md)
-   - Schema Design
-   - Migrations with Atlas
-   - Seeding Data
-   - Backup & Restore
+### Core Documentation
+- [Database Guide](./database.md) - Comprehensive guide to database schema, migrations with Atlas, and best practices
+- [API Reference](./api-reference.md) - Detailed API documentation and usage examples
+- [Security Guide](./security.md) - Security best practices and implementation details
 
-5. [API Reference](./api-reference.md)
-   - Authentication
-   - URL Management
-   - Error Handling
-   - Rate Limiting
+### Development Guides
+- [Getting Started](./getting-started.md) - Setup and installation instructions
+- [Development Guide](./development.md) - Local development workflow and guidelines
+- [Deployment Guide](./deployment.md) - Production deployment instructions
 
-6. [Security](./security.md)
-   - Authentication
-   - Authorization
-   - Password Management
-   - API Security
+### Additional Resources
+- [Troubleshooting](./troubleshooting.md) - Common issues and solutions
+- [Contributing Guide](./contributing.md) - Guidelines for contributing to the project
 
-7. [Deployment](./deployment.md)
-   - Environment Setup
-   - Production Deployment
-   - Monitoring
-   - Scaling
+## Project Structure
 
-8. [Troubleshooting](./troubleshooting.md)
-   - Common Issues
-   - Debugging
-   - Performance
-   - Security
-
-## Contributing
-
-Please read our [Contributing Guide](./contributing.md) before submitting pull requests.
+```
+refurl/
+├── apps/               # Application code
+├── database/          # Database migrations and schema
+├── docs/              # Documentation
+├── shared/            # Shared utilities and types
+└── deployment/        # Deployment configurations
+```
 
 ## License
 
