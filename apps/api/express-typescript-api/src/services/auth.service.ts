@@ -1,8 +1,9 @@
 import bcrypt from 'bcryptjs';
-import jwt from 'jsonwebtoken';
+import jwt, { SignOptions } from 'jsonwebtoken';
 import { UnauthorizedError, ValidationError } from '../types/errors';
 import { env } from '../config/env';
 import logger from '../utils/logger';
+import User from '../models/user.model';
 
 export interface RegisterData {
   email: string;
@@ -18,25 +19,24 @@ export interface LoginData {
 export class AuthService {
   async register(data: RegisterData) {
     try {
-      // Check if user exists (implement with your database)
-      // const existingUser = await UserRepository.findByEmail(data.email);
-      // if (existingUser) {
-      //   throw new ValidationError('User already exists');
-      // }
+      // Check if user exists
+      const existingUser = await User.findOne({ where: { email: data.email } });
+      if (existingUser) {
+        throw new ValidationError('User already exists');
+      }
 
       // Hash password
       const hashedPassword = await bcrypt.hash(data.password, 12);
 
-      // Create user (implement with your database)
-      const user = {
-        id: Date.now().toString(), // Replace with actual ID generation
+      // Create user
+      const user = await User.create({
         email: data.email,
         name: data.name,
-        password: hashedPassword,
-      };
+        password: hashedPassword
+      } as any);
 
       // Generate JWT token
-      const token = this.generateToken(user.id);
+      const token = this.generateToken(user.id.toString());
 
       logger.info(`User registered: ${data.email}`);
 
@@ -56,18 +56,11 @@ export class AuthService {
 
   async login(data: LoginData) {
     try {
-      // Find user (implement with your database)
-      // const user = await UserRepository.findByEmail(data.email);
-      // if (!user) {
-      //   throw new UnauthorizedError('Invalid credentials');
-      // }
-
-      // Mock user for example
-      const user = {
-        id: '1',
-        email: data.email,
-        password: '$2a$12$example', // This should come from database
-      };
+      // Find user
+      const user = await User.findOne({ where: { email: data.email } });
+      if (!user) {
+        throw new UnauthorizedError('Invalid credentials');
+      }
 
       // Verify password
       const isValidPassword = await bcrypt.compare(data.password, user.password);
@@ -76,7 +69,7 @@ export class AuthService {
       }
 
       // Generate JWT token
-      const token = this.generateToken(user.id);
+      const token = this.generateToken(user.id.toString());
 
       logger.info(`User logged in: ${data.email}`);
 
@@ -84,6 +77,7 @@ export class AuthService {
         user: {
           id: user.id,
           email: user.email,
+          name: user.name,
         },
         token,
       };
@@ -94,10 +88,14 @@ export class AuthService {
   }
 
   private generateToken(userId: string): string {
+    const options: SignOptions = {
+      expiresIn: env.JWT_EXPIRES_IN as unknown as number
+    };
+    
     return jwt.sign(
       { userId },
-      process.env.JWT_SECRET || 'your-secret-key',
-      { expiresIn: '24h' }
+      env.JWT_SECRET,
+      options
     );
   }
 }
