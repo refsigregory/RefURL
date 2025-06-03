@@ -19,7 +19,7 @@ export interface UrlResponse {
   clicks_at: Date;
 }
 
-export class UrlsService {
+export class UrlService {
   async createUrl(data: CreateUrlData): Promise<UrlResponse> {
     try {
       // Generate a unique short code
@@ -116,4 +116,4 @@ export class UrlsService {
   }
 }
 
-export const urlsService = new UrlsService();
+export const urlsService = new UrlService();

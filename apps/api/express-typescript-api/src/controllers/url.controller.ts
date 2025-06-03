@@ -1,5 +1,5 @@
 import { Response } from 'express';
-import { urlsService } from '../services/urls.service';
+import { urlsService } from '../services/url.service';
 import { AppError } from '../utils/error';
 import { Request } from '../types/express';
 
