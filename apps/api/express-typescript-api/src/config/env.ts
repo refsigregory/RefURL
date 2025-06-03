@@ -25,6 +25,9 @@ const envSchema = z.object({
   SMTP_PORT: z.string().transform(Number).optional(),
   SMTP_USER: z.string().optional(),
   SMTP_PASS: z.string().optional(),
+
+  // Initial setup
+  INITIAL_USER_PASSWORD: z.string().default('admin123'),
 });
 
 export type EnvConfig = z.infer<typeof envSchema>;
