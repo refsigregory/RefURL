@@ -1,20 +1,8 @@
-import { Model, DataTypes, Optional } from 'sequelize';
+import { Model, DataTypes } from 'sequelize';
+import { UrlAttributes } from '../types/url.types';
 import sequelize from '../config/database';
 
-interface UrlAttributes {
-  id: number;
-  owner: number | null;
-  original_url: string;
-  short_code: string;
-  title: string | null;
-  clicks: number;
-  created_at: Date;
-  clicks_at: Date;
-}
-
-interface UrlCreationAttributes extends Optional<UrlAttributes, 'id' | 'clicks' | 'created_at' | 'clicks_at'> {}
-
-class Url extends Model<UrlAttributes, UrlCreationAttributes> implements UrlAttributes {
+class Url extends Model<UrlAttributes> implements UrlAttributes {
   public id!: number;
   public owner!: number | null;
   public original_url!: string;
@@ -23,8 +11,6 @@ class Url extends Model<UrlAttributes, UrlCreationAttributes> implements UrlAttr
   public clicks!: number;
   public created_at!: Date;
   public clicks_at!: Date;
-
-  public readonly updated_at!: Date;
 }
 
 Url.init(
@@ -75,9 +61,9 @@ Url.init(
     sequelize,
     tableName: 'urls',
     modelName: 'Url',
-    timestamps: true,
+    timestamps: false,
     underscored: true,
   }
 );
 
-export default Url; 
+export default Url;

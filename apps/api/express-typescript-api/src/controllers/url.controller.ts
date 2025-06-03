@@ -1,5 +1,5 @@
 import { Response } from 'express';
-import { urlsService } from '../services/url.service';
+import { urlService } from '../services/url.service';
 import { AppError } from '../utils/error';
 import { Request } from '../types/express';
 
@@ -7,7 +7,7 @@ export const shortenUrl = async (req: Request, res: Response) => {
   const { original_url, title } = req.body;
   const owner_id = req.user?.userId;
   
-  const url = await urlsService.createUrl({
+  const url = await urlService.createUrl({
     original_url,
     title,
     owner_id
@@ -22,8 +22,8 @@ export const shortenUrl = async (req: Request, res: Response) => {
 export const redirectToOriginal = async (req: Request, res: Response) => {
   const { shortCode } = req.params;
   
-  const url = await urlsService.getUrlByShortCode(shortCode);
-  await urlsService.incrementClicks(shortCode);
+  const url = await urlService.getUrlByShortCode(shortCode);
+  await urlService.incrementClicks(shortCode);
 
   res.redirect(url.original_url);
 };
@@ -33,7 +33,7 @@ export const getUserUrls = async (req: Request, res: Response) => {
     throw new AppError('Authentication required', 401);
   }
 
-  const urls = await urlsService.getUserUrls(req.user.userId);
+  const urls = await urlService.getUserUrls(req.user.userId);
   
   res.json({
     success: true,
@@ -47,7 +47,7 @@ export const deleteUrl = async (req: Request, res: Response) => {
   }
 
   const { id } = req.params;
-  const deleted = await urlsService.deleteUrl(parseInt(id), req.user.userId);
+  const deleted = await urlService.deleteUrl(parseInt(id), req.user.userId);
 
   if (!deleted) {
     throw new AppError('URL not found or unauthorized', 404);
@@ -58,3 +58,12 @@ export const deleteUrl = async (req: Request, res: Response) => {
     message: 'URL deleted successfully'
   });
 }; 
+
+export const testPerformance = async (req: Request, res: Response) => {
+  await urlService.testPerformance();
+
+  res.json({
+    success: true,
+    message: 'Performance test completed'
+  });
+};

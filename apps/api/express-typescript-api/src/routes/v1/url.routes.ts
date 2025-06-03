@@ -8,7 +8,7 @@ import * as urlController from '../../controllers/url.controller';
 const router = Router();
 
 // Public routes
-router.get('/:shortCode',
+router.get('/go/:shortCode',
   validate([
     body('shortCode').isString().withMessage('Short code is required'),
   ]),
@@ -26,15 +26,19 @@ router.post('/shorten',
   asyncHandler(urlController.shortenUrl)
 );
 
-router.get('/urls',
+router.get('/',
   asyncHandler(urlController.getUserUrls)
 );
 
-router.delete('/urls/:id',
+router.delete('/:id',
   validate([
     body('id').isInt().withMessage('Valid URL ID is required'),
   ]),
   asyncHandler(urlController.deleteUrl)
+);
+
+router.get('/test',
+  asyncHandler(urlController.testPerformance)
 );
 
 export default router; 

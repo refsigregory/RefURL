@@ -14,7 +14,7 @@ export const register = async (req: Request, res: Response): Promise<void> => {
 export const login = async (req: Request, res: Response): Promise<void> => {
   const result = await authService.login(req.body);
   
-  res.status(200).json({
+  res.json({
     success: true,
     message: 'Login successful',
     data: result,

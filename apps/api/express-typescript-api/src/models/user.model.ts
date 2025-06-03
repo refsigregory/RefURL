@@ -10,13 +10,13 @@ export interface UserAttributes {
   updated_at: Date;
 }
 
-class User extends Model<UserAttributes> implements UserAttributes {
-  public id!: number;
-  public email!: string;
-  public password!: string;
-  public name!: string;
-  public created_at!: Date;
-  public updated_at!: Date;
+class User extends Model<UserAttributes> {
+  declare id: number;
+  declare email: string;
+  declare password: string;
+  declare name: string;
+  declare created_at: Date;
+  declare updated_at: Date;
 }
 
 User.init(
@@ -59,4 +59,4 @@ User.init(
   }
 );
 
-export default User; 
+export default User;

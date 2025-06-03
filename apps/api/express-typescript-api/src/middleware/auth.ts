@@ -16,10 +16,10 @@ export const authenticate = async (req: Request, res: Response, next: NextFuncti
     const token = authHeader.split(' ')[1];
 
     // Verify token
-    const decoded = jwt.verify(token, env.JWT_SECRET) as { id: number };
+    const decoded = jwt.verify(token, env.JWT_SECRET) as { userId: string };
 
     // Get user from database
-    const user = await User.findByPk(decoded.id);
+    const user = await User.findByPk(decoded.userId);
     if (!user) {
       throw new AppError('User not found', 401);
     }
@@ -27,7 +27,7 @@ export const authenticate = async (req: Request, res: Response, next: NextFuncti
     // Attach user to request
     req.user = {
       ...user,
-      userId: user.id as unknown as number
+      userId: user.id
     };
     next();
   } catch (error) {
