@@ -7,7 +7,8 @@
     "dev:local": "source ../../../.env && nodemon src/server.ts",
     "test": "jest",
     "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage"
+    "test:coverage": "jest --coverage",
+    "update-passwords": "ts-node src/scripts/update-user-passwords.ts"
   },
   "keywords": [],
   "author": "",
