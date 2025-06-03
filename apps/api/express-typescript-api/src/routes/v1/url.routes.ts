@@ -9,9 +9,6 @@ const router = Router();
 
 // Public routes
 router.get('/go/:shortCode',
-  validate([
-    body('shortCode').isString().withMessage('Short code is required'),
-  ]),
   asyncHandler(urlController.redirectToOriginal)
 );
 
