@@ -6,6 +6,7 @@ import (
 	"github.com/gorilla/mux"
 	"github.com/refsigregory/refurl/apps/api/go-api/internal/handlers"
 	"github.com/refsigregory/refurl/apps/api/go-api/internal/middleware"
+	"github.com/refsigregory/refurl/apps/api/go-api/internal/services"
 )
 
 type Router struct {
@@ -13,18 +14,21 @@ type Router struct {
 	healthHandler *handlers.HealthHandler
 	authHandler   *handlers.AuthHandler
 	urlHandler    *handlers.URLHandler
+	authService   *services.AuthService
 }
 
 func NewRouter(
 	healthHandler *handlers.HealthHandler,
 	authHandler *handlers.AuthHandler,
 	urlHandler *handlers.URLHandler,
+	authService *services.AuthService,
 ) *Router {
 	r := &Router{
 		Router:        mux.NewRouter(),
 		healthHandler: healthHandler,
 		authHandler:   authHandler,
 		urlHandler:    urlHandler,
+		authService:   authService,
 	}
 
 	r.setupRoutes()
@@ -48,13 +52,17 @@ func (r *Router) setupRoutes() {
 	api.HandleFunc("/auth/login", r.authHandler.Login).Methods(http.MethodPost)
 	api.HandleFunc("/auth/register", r.authHandler.Register).Methods(http.MethodPost)
 
-	// URL routes
-	api.HandleFunc("/urls", r.urlHandler.CreateURL).Methods(http.MethodPost)
-	api.HandleFunc("/urls/{id}", r.urlHandler.GetURL).Methods(http.MethodGet)
-	api.HandleFunc("/urls", r.urlHandler.GetUserURLs).Methods(http.MethodGet)
-	api.HandleFunc("/urls/{id}", r.urlHandler.UpdateURL).Methods(http.MethodPut)
-	api.HandleFunc("/urls/{id}", r.urlHandler.DeleteURL).Methods(http.MethodDelete)
+	// Protected routes
+	protected := api.PathPrefix("").Subrouter()
+	protected.Use(middleware.Auth(r.authService))
 
-	// Redirect routes
+	// URL routes
+	protected.HandleFunc("/urls", r.urlHandler.CreateURL).Methods(http.MethodPost)
+	protected.HandleFunc("/urls/{id}", r.urlHandler.GetURL).Methods(http.MethodGet)
+	protected.HandleFunc("/urls", r.urlHandler.GetUserURLs).Methods(http.MethodGet)
+	protected.HandleFunc("/urls/{id}", r.urlHandler.UpdateURL).Methods(http.MethodPut)
+	protected.HandleFunc("/urls/{id}", r.urlHandler.DeleteURL).Methods(http.MethodDelete)
+
+	// Redirect routes (public)
 	api.HandleFunc("/urls/go/{shortCode}", r.urlHandler.RedirectToOriginal).Methods(http.MethodGet)
 }

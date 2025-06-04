@@ -22,7 +22,7 @@ func (s *URLService) CreateURL(ctx context.Context, userID uint, req *models.Cre
 		OriginalURL: req.OriginalURL,
 		Title:       req.Title,
 		ShortCode:   req.ShortCode,
-		UserID:      userID,
+		Owner:       userID,
 	}
 
 	if err := s.db.Create(url).Error; err != nil {
@@ -41,7 +41,7 @@ func (s *URLService) CreateURL(ctx context.Context, userID uint, req *models.Cre
 
 func (s *URLService) GetURLByID(ctx context.Context, userID uint, id uint) (*models.URLResponse, error) {
 	var url models.URL
-	if err := s.db.Where("id = ? AND user_id = ?", id, userID).First(&url).Error; err != nil {
+	if err := s.db.Where("id = ? AND owner = ?", id, userID).First(&url).Error; err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
 			return nil, errors.New("url not found")
 		}
@@ -60,7 +60,7 @@ func (s *URLService) GetURLByID(ctx context.Context, userID uint, id uint) (*mod
 
 func (s *URLService) GetUserURLs(ctx context.Context, userID uint) ([]models.URLResponse, error) {
 	var urls []models.URL
-	if err := s.db.Where("user_id = ?", userID).Find(&urls).Error; err != nil {
+	if err := s.db.Where("owner = ?", userID).Find(&urls).Error; err != nil {
 		return nil, err
 	}
 
@@ -81,7 +81,7 @@ func (s *URLService) GetUserURLs(ctx context.Context, userID uint) ([]models.URL
 
 func (s *URLService) UpdateURL(ctx context.Context, userID uint, id uint, req *models.UpdateURLRequest) (*models.URLResponse, error) {
 	var url models.URL
-	if err := s.db.Where("id = ? AND user_id = ?", id, userID).First(&url).Error; err != nil {
+	if err := s.db.Where("id = ? AND owner = ?", id, userID).First(&url).Error; err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
 			return nil, errors.New("url not found")
 		}
@@ -108,7 +108,7 @@ func (s *URLService) UpdateURL(ctx context.Context, userID uint, id uint, req *m
 }
 
 func (s *URLService) DeleteURL(ctx context.Context, userID uint, id uint) error {
-	result := s.db.Unscoped().Where("id = ? AND user_id = ?", id, userID).Delete(&models.URL{})
+	result := s.db.Unscoped().Where("id = ? AND owner = ?", id, userID).Delete(&models.URL{})
 	if result.Error != nil {
 		return result.Error
 	}

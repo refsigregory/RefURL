@@ -9,8 +9,8 @@ type URL struct {
 	OriginalURL string    `json:"original_url" gorm:"not null"`
 	ShortCode   string    `json:"short_code" gorm:"uniqueIndex"`
 	Title       string    `json:"title"`
-	UserID      uint      `json:"user_id"`
-	User        User      `json:"user" gorm:"foreignKey:UserID"`
+	Owner       uint      `json:"owner" gorm:"column:owner"`
+	User        User      `json:"user" gorm:"foreignKey:Owner"`
 	CreatedAt   time.Time `json:"created_at"`
 	UpdatedAt   time.Time `json:"updated_at"`
 }

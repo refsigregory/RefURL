@@ -43,7 +43,7 @@ func run(config *configs.Config) error {
 	urlHandler := handlers.NewURLHandler(urlService)
 
 	// Initialize router
-	r := router.NewRouter(healthHandler, authHandler, urlHandler)
+	r := router.NewRouter(healthHandler, authHandler, urlHandler, authService)
 
 	// Initialize your application
 	fmt.Printf("Starting go-api server in %s mode...\n", config.NodeEnv)
