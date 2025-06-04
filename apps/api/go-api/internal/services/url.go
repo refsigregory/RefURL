@@ -23,6 +23,8 @@ func (s *URLService) CreateURL(ctx context.Context, userID uint, req *models.Cre
 		Title:       req.Title,
 		ShortCode:   req.ShortCode,
 		Owner:       userID,
+		Clicks:      0,
+		ClicksAt:    time.Now(),
 	}
 
 	if err := s.db.Create(url).Error; err != nil {
@@ -34,8 +36,9 @@ func (s *URLService) CreateURL(ctx context.Context, userID uint, req *models.Cre
 		OriginalURL: url.OriginalURL,
 		ShortCode:   url.ShortCode,
 		Title:       url.Title,
+		Clicks:      url.Clicks,
 		CreatedAt:   url.CreatedAt,
-		UpdatedAt:   url.UpdatedAt,
+		ClicksAt:    url.ClicksAt,
 	}, nil
 }
 
@@ -53,8 +56,9 @@ func (s *URLService) GetURLByID(ctx context.Context, userID uint, id uint) (*mod
 		OriginalURL: url.OriginalURL,
 		ShortCode:   url.ShortCode,
 		Title:       url.Title,
+		Clicks:      url.Clicks,
 		CreatedAt:   url.CreatedAt,
-		UpdatedAt:   url.UpdatedAt,
+		ClicksAt:    url.ClicksAt,
 	}, nil
 }
 
@@ -71,8 +75,9 @@ func (s *URLService) GetUserURLs(ctx context.Context, userID uint) ([]models.URL
 			OriginalURL: url.OriginalURL,
 			ShortCode:   url.ShortCode,
 			Title:       url.Title,
+			Clicks:      url.Clicks,
 			CreatedAt:   url.CreatedAt,
-			UpdatedAt:   url.UpdatedAt,
+			ClicksAt:    url.ClicksAt,
 		}
 	}
 
@@ -91,7 +96,6 @@ func (s *URLService) UpdateURL(ctx context.Context, userID uint, id uint, req *m
 	url.OriginalURL = req.OriginalURL
 	url.Title = req.Title
 	url.ShortCode = req.ShortCode
-	url.UpdatedAt = time.Now()
 
 	if err := s.db.Save(&url).Error; err != nil {
 		return nil, err
@@ -102,8 +106,9 @@ func (s *URLService) UpdateURL(ctx context.Context, userID uint, id uint, req *m
 		OriginalURL: url.OriginalURL,
 		ShortCode:   url.ShortCode,
 		Title:       url.Title,
+		Clicks:      url.Clicks,
 		CreatedAt:   url.CreatedAt,
-		UpdatedAt:   url.UpdatedAt,
+		ClicksAt:    url.ClicksAt,
 	}, nil
 }
 
@@ -127,12 +132,20 @@ func (s *URLService) GetURLByShortCode(ctx context.Context, shortCode string) (*
 		return nil, err
 	}
 
+	// Increment clicks and update clicks_at
+	url.Clicks++
+	url.ClicksAt = time.Now()
+	if err := s.db.Save(&url).Error; err != nil {
+		return nil, err
+	}
+
 	return &models.URLResponse{
 		ID:          url.ID,
 		OriginalURL: url.OriginalURL,
 		ShortCode:   url.ShortCode,
 		Title:       url.Title,
+		Clicks:      url.Clicks,
 		CreatedAt:   url.CreatedAt,
-		UpdatedAt:   url.UpdatedAt,
+		ClicksAt:    url.ClicksAt,
 	}, nil
 }

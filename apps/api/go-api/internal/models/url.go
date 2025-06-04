@@ -11,8 +11,9 @@ type URL struct {
 	Title       string    `json:"title"`
 	Owner       uint      `json:"owner" gorm:"column:owner"`
 	User        User      `json:"user" gorm:"foreignKey:Owner"`
+	Clicks      int64     `json:"clicks" gorm:"default:0"`
 	CreatedAt   time.Time `json:"created_at"`
-	UpdatedAt   time.Time `json:"updated_at"`
+	ClicksAt    time.Time `json:"clicks_at"`
 }
 
 type CreateURLRequest struct {
@@ -32,6 +33,7 @@ type URLResponse struct {
 	OriginalURL string    `json:"original_url"`
 	ShortCode   string    `json:"short_code"`
 	Title       string    `json:"title"`
+	Clicks      int64     `json:"clicks"`
 	CreatedAt   time.Time `json:"created_at"`
-	UpdatedAt   time.Time `json:"updated_at"`
+	ClicksAt    time.Time `json:"clicks_at"`
 }
