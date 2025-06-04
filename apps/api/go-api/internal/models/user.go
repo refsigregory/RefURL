@@ -7,15 +7,33 @@ import (
 )
 
 type User struct {
-	ID        uint           `gorm:"primarykey" json:"id"`
+	ID        uint           `json:"id" gorm:"primaryKey"`
+	Name      string         `json:"name" gorm:"not null"`
+	Email     string         `json:"email" gorm:"uniqueIndex;not null"`
+	Password  string         `json:"-" gorm:"not null"`
 	CreatedAt time.Time      `json:"created_at"`
 	UpdatedAt time.Time      `json:"updated_at"`
-	DeletedAt gorm.DeletedAt `gorm:"index" json:"-"`
+	DeletedAt gorm.DeletedAt `json:"-" gorm:"index"`
+}
 
-	Email    string `gorm:"uniqueIndex;not null" json:"email"`
-	Password string `gorm:"not null" json:"-"`
-	Name     string `json:"name"`
-	Role     string `gorm:"default:user" json:"role"`
+type RegisterRequest struct {
+	Name     string `json:"name" validate:"required"`
+	Email    string `json:"email" validate:"required,email"`
+	Password string `json:"password" validate:"required,min=6"`
+}
+
+type LoginRequest struct {
+	Email    string `json:"email" validate:"required,email"`
+	Password string `json:"password" validate:"required"`
+}
+
+type AuthResponse struct {
+	Token string `json:"token"`
+	User  struct {
+		ID    uint   `json:"id"`
+		Name  string `json:"name"`
+		Email string `json:"email"`
+	} `json:"user"`
 }
 
 // TableName specifies the table name for the User model

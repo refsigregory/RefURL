@@ -34,12 +34,16 @@ func run(config *configs.Config) error {
 
 	// Initialize services
 	healthService := services.NewHealthService()
+	authService := services.NewAuthService(db.GetDB(), config.JWTSecret)
+	urlService := services.NewURLService(db.GetDB())
 
 	// Initialize handlers
 	healthHandler := handlers.NewHealthHandler(healthService)
+	authHandler := handlers.NewAuthHandler(authService)
+	urlHandler := handlers.NewURLHandler(urlService)
 
 	// Initialize router
-	r := router.NewRouter(healthHandler)
+	r := router.NewRouter(healthHandler, authHandler, urlHandler)
 
 	// Initialize your application
 	fmt.Printf("Starting go-api server in %s mode...\n", config.NodeEnv)

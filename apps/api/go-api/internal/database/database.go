@@ -60,3 +60,8 @@ func (db *Database) Close() error {
 func (db *Database) AutoMigrate(models ...interface{}) error {
 	return db.DB.AutoMigrate(models...)
 }
+
+// GetDB returns the underlying GORM DB instance
+func (d *Database) GetDB() *gorm.DB {
+	return d.DB
+}
