@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/refsi/go-api/configs"
+	"github.com/refsigregory/refurl/apps/api/go-api/configs"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"

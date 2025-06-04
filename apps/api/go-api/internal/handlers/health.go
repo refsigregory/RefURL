@@ -3,9 +3,9 @@ package handlers
 import (
 	"net/http"
 
-	"github.com/refsi/go-api/internal/api"
-	"github.com/refsi/go-api/internal/services"
-	"github.com/refsi/go-api/pkg/logger"
+	"github.com/refsigregory/refurl/apps/api/go-api/internal/api"
+	"github.com/refsigregory/refurl/apps/api/go-api/internal/services"
+	"github.com/refsigregory/refurl/apps/api/go-api/pkg/logger"
 )
 
 type HealthHandler struct {

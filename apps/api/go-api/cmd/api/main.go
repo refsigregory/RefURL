@@ -5,11 +5,11 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/refsi/go-api/configs"
-	"github.com/refsi/go-api/internal/database"
-	"github.com/refsi/go-api/internal/handlers"
-	"github.com/refsi/go-api/internal/router"
-	"github.com/refsi/go-api/internal/services"
+	"github.com/refsigregory/refurl/apps/api/go-api/configs"
+	"github.com/refsigregory/refurl/apps/api/go-api/internal/database"
+	"github.com/refsigregory/refurl/apps/api/go-api/internal/handlers"
+	"github.com/refsigregory/refurl/apps/api/go-api/internal/router"
+	"github.com/refsigregory/refurl/apps/api/go-api/internal/services"
 )
 
 func main() {

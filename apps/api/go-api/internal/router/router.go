@@ -4,8 +4,8 @@ import (
 	"net/http"
 
 	"github.com/gorilla/mux"
-	"github.com/refsi/go-api/internal/handlers"
-	"github.com/refsi/go-api/internal/middleware"
+	"github.com/refsigregory/refurl/apps/api/go-api/internal/handlers"
+	"github.com/refsigregory/refurl/apps/api/go-api/internal/middleware"
 )
 
 type Router struct {
