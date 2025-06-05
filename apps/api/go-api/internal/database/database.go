@@ -26,7 +26,7 @@ func NewDatabase(config *configs.Config) (*Database, error) {
 	// Open database connection
 	db, err := gorm.Open(postgres.Open(config.GetDSN()), &gorm.Config{
 		Logger: gormLogger,
-		// Disable GORM's auto-migration since we're using Atlas
+		// Disable GORM's auto-migration since using Atlas CLI for migrations
 		DisableForeignKeyConstraintWhenMigrating: true,
 	})
 	if err != nil {

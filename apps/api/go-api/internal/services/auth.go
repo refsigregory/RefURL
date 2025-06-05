@@ -16,6 +16,11 @@ type AuthService struct {
 	secret string
 }
 
+type AuthServiceInterface interface {
+	Register(ctx context.Context, req *models.RegisterRequest) (*models.AuthResponse, error)
+	Login(ctx context.Context, req *models.LoginRequest) (*models.AuthResponse, error)
+}
+
 func NewAuthService(db *gorm.DB, secret string) *AuthService {
 	return &AuthService{
 		db:     db,

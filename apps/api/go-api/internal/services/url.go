@@ -9,6 +9,15 @@ import (
 	"gorm.io/gorm"
 )
 
+type URLServiceInterface interface {
+	CreateURL(ctx context.Context, userID uint, req *models.CreateURLRequest) (*models.URLResponse, error)
+	GetURLByID(ctx context.Context, userID uint, id uint) (*models.URLResponse, error)
+	GetUserURLs(ctx context.Context, userID uint) ([]models.URLResponse, error)
+	UpdateURL(ctx context.Context, userID uint, id uint, req *models.UpdateURLRequest) (*models.URLResponse, error)
+	DeleteURL(ctx context.Context, userID uint, id uint) error
+	GetURLByShortCode(ctx context.Context, shortCode string) (*models.URLResponse, error)
+}
+
 type URLService struct {
 	db *gorm.DB
 }
