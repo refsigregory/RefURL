@@ -1,0 +1,35 @@
+spring:
+  application:
+    name: java-spring-boot-api
+  datasource:
+    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/refurl}
+    username: ${DATABASE_USERNAME:postgres}
+    password: ${DATABASE_PASSWORD:postgres}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+server:
+  port: ${PORT:8080}
+  servlet:
+    context-path: /api
+
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operationsSorter: method
+
+logging:
+  level:
+    root: INFO
+    com.refurl: DEBUG
+    org.springframework.web: INFO
+    org.hibernate: INFO 
