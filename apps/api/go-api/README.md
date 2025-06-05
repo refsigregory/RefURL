@@ -83,6 +83,45 @@ make run
 - Use table-driven tests where appropriate
 - Run tests with `go test -v ./...`
 
+#### Unit Testing Best Practices
+
+- Use [table-driven tests](https://github.com/golang/go/wiki/TableDrivenTests) for clarity and coverage.
+- Mock dependencies (e.g., database, services) using [sqlmock](https://github.com/DATA-DOG/go-sqlmock) and [testify/mock](https://github.com/stretchr/testify).
+- Place test files alongside the code they test, using the `_test.go` suffix.
+- Use `require` for critical assertions and `assert` for non-critical ones.
+- Cover both success and error scenarios in your tests.
+- Keep tests isolated and independent from each other.
+
+#### Running Unit Tests
+
+To run all unit tests with verbose output:
+
+```bash
+go test ./internal/services/... ./internal/handlers/... -v
+```
+
+Or use the Makefile:
+
+```bash
+make test
+```
+
+#### Adding New Tests
+
+- Add new test files as `*_test.go` in the relevant package.
+- Use mocks for external dependencies.
+- See `internal/services/url_test.go` and `internal/handlers/url_test.go` for examples.
+
+#### Test Dependencies
+
+Test dependencies are managed in `go.mod`. If you add new test libraries, run:
+
+```bash
+go mod tidy
+```
+
+to update dependencies.
+
 ### API Documentation
 
 API documentation is generated using Swagger. To update the documentation:
@@ -90,32 +129,3 @@ API documentation is generated using Swagger. To update the documentation:
 ```bash
 make docs
 ```
-
-## Deployment
-
-1. Build the application:
-```bash
-make build
-```
-
-2. Run database migrations:
-```bash
-make migrate
-```
-
-3. Start the server:
-```bash
-./bin/api
-```
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Commit your changes
-4. Push to the branch
-5. Create a Pull Request
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details. 
