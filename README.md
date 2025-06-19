@@ -14,10 +14,11 @@ A multi-backend URL shortener service with support for multiple frameworks. This
 ## Backend Implementations
 
 - [x] Node JS - Express (TypeScript) ([setup instructions](./apps/api/express-typescript-api/README.md))
-- [ ] Go
-- [ ] Java: Spring Boot
+- [x] Go
+- [ ] Java: Spring Boot (Incompleted)
 - [ ] PHP: Laravel
 - [ ] Python: Flask
+- [ ] Rust
 
 > **Each backend has its own README with setup and development instructions. Please refer to the appropriate README for details.**
 
