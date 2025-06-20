@@ -10,12 +10,12 @@ export class UrlService {
       const short_code = nanoid(6);
       const url = await Url.create({
         original_url: data.original_url,
-        short_code: data?.short_code || short_code,
+        short_code: data?.short_code ? data.short_code : short_code,
         title: data.title,
-        owner: data.owner_id || "",
+        owner: data.owner_id || null,
       } as UrlAttributes);
 
-      return this.mapToResponse(url);
+      return this.mapToResponse(url.get({ plain: true }));
     } catch (error) {
       logger.error('URL creation error:', error);
       throw error;

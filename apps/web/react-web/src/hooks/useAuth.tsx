@@ -42,25 +42,17 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   }, []);
 
   const login = async (data: AuthRequest) => {
-    try {
-      const response = await apiService.login(data);
-      localStorage.setItem('token', response.token);
-      localStorage.setItem('user', JSON.stringify(response.user));
-      setUser(response.user);
-    } catch (error) {
-      throw error;
-    }
+    const response = await apiService.login(data);
+    localStorage.setItem('token', response.token);
+    localStorage.setItem('user', JSON.stringify(response.user));
+    setUser(response.user);
   };
 
   const register = async (data: AuthRequest) => {
-    try {
-      const response = await apiService.register(data);
-      localStorage.setItem('token', response.token);
-      localStorage.setItem('user', JSON.stringify(response.user));
-      setUser(response.user);
-    } catch (error) {
-      throw error;
-    }
+    const response = await apiService.register(data);
+    localStorage.setItem('token', response.token);
+    localStorage.setItem('user', JSON.stringify(response.user));
+    setUser(response.user);
   };
 
   const logout = () => {

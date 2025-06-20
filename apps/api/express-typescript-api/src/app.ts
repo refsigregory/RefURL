@@ -42,7 +42,7 @@ app.use(limiter);
 app.use(cors({
   origin: env.NODE_ENV === 'production' 
     ? ['https://url.ref.si'] 
-    : ['http://localhost:3000', 'http://localhost:3001'],
+    : ['http://localhost:3000', 'http://localhost:3001', 'http://localhost:5173'],
   credentials: true,
 }));
 

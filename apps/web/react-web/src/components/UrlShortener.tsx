@@ -80,7 +80,7 @@ export const UrlShortener: React.FC = () => {
                   id="original_url"
                   value={formData.original_url}
                   onChange={(e) => setFormData({ ...formData, original_url: e.target.value })}
-                  placeholder="https://example.com/very-long-url-that-needs-shortening"
+                  placeholder={`${window.location.origin}/your-url`}
                   className="w-full px-6 py-4 text-lg border-2 border-gray-200 rounded-2xl focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition-all duration-300 bg-white/80 backdrop-blur-sm placeholder-gray-400 group-hover:border-gray-300"
                   required
                 />
