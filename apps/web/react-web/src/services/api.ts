@@ -42,43 +42,43 @@ class ApiService {
   }
 
   // Auth endpoints
-  async register(data: AuthRequest): Promise<AuthResponse> {
+  register = async (data: AuthRequest): Promise<AuthResponse> => {
     const response: AxiosResponse<ApiResponse<AuthResponse>> = await this.api.post('/auth/register', data);
     return response.data.data!;
   }
 
-  async login(data: AuthRequest): Promise<AuthResponse> {
+  login = async (data: AuthRequest): Promise<AuthResponse> => {
     const response: AxiosResponse<ApiResponse<AuthResponse>> = await this.api.post('/auth/login', data);
     return response.data.data!;
   }
 
   // URL endpoints
-  async shortenUrl(data: CreateUrlRequest): Promise<Url> {
+  shortenUrl = async (data: CreateUrlRequest): Promise<Url> => {
     const response: AxiosResponse<ApiResponse<Url>> = await this.api.post('/urls/shorten', data);
     return response.data.data!;
   }
 
-  async getUserUrls(): Promise<Url[]> {
+  getUserUrls = async (): Promise<Url[]> => {
     const response: AxiosResponse<ApiResponse<Url[]>> = await this.api.get('/urls');
     return response.data.data!;
   }
 
-  async getUrlById(id: string): Promise<Url> {
+  getUrlById = async (id: string): Promise<Url> => {
     const response: AxiosResponse<ApiResponse<Url>> = await this.api.get(`/urls/${id}`);
     return response.data.data!;
   }
 
-  async updateUrl(id: string, data: UpdateUrlRequest): Promise<Url> {
+  updateUrl = async (id: string, data: UpdateUrlRequest): Promise<Url> => {
     const response: AxiosResponse<ApiResponse<Url>> = await this.api.put(`/urls/${id}`, data);
     return response.data.data!;
   }
 
-  async deleteUrl(id: string): Promise<void> {
+  deleteUrl = async (id: string): Promise<void> => {
     await this.api.delete(`/urls/${id}`);
   }
 
   // Public redirect endpoint
-  getRedirectUrl(shortCode: string): string {
+  getRedirectUrl = (shortCode: string): string => {
     return `${this.api.defaults.baseURL}/urls/go/${shortCode}`;
   }
 }
