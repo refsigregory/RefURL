@@ -40,7 +40,7 @@ export const Home: React.FC = () => {
       <div className="text-center">
         <h1 className="text-4xl font-bold text-gray-900 sm:text-6xl">
           Shorten URLs with
-          <span className="text-blue-600"> Confidence</span>
+          <span className="text-primary-600"> Confidence</span>
         </h1>
         <p className="mt-6 text-lg text-gray-600 max-w-3xl mx-auto">
           Transform long URLs into short, shareable links. Track performance, 
@@ -50,7 +50,7 @@ export const Home: React.FC = () => {
           {isAuthenticated ? (
             <Link
               to="/dashboard"
-              className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-8 rounded-lg transition-colors duration-200"
+              className="bg-primary-600 hover:bg-primary-700 text-white font-medium py-3 px-8 rounded-lg transition-colors duration-200"
             >
               Go to Dashboard
             </Link>
@@ -58,7 +58,7 @@ export const Home: React.FC = () => {
             <>
               <Link
                 to="/register"
-                className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-8 rounded-lg transition-colors duration-200"
+                className="bg-primary-600 hover:bg-primary-700 text-white font-medium py-3 px-8 rounded-lg transition-colors duration-200"
               >
                 Get Started Free
               </Link>
@@ -92,8 +92,8 @@ export const Home: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {features.map((feature, index) => (
             <div key={index} className="text-center">
-              <div className="mx-auto h-12 w-12 flex items-center justify-center rounded-lg bg-blue-100 mb-4">
-                <feature.icon className="h-6 w-6 text-blue-600" />
+              <div className="mx-auto h-12 w-12 flex items-center justify-center rounded-lg bg-primary-100 mb-4">
+                <feature.icon className="h-6 w-6 text-primary-600" />
               </div>
               <h3 className="text-lg font-medium text-gray-900 mb-2">
                 {feature.title}
@@ -107,7 +107,7 @@ export const Home: React.FC = () => {
       </div>
 
       {/* CTA Section */}
-      <div className="bg-blue-600 rounded-2xl p-8 text-center text-white">
+      <div className="bg-primary-600 rounded-2xl p-8 text-center text-white">
         <h2 className="text-3xl font-bold mb-4">
           Ready to Get Started?
         </h2>
@@ -117,14 +117,14 @@ export const Home: React.FC = () => {
         {isAuthenticated ? (
           <Link
             to="/dashboard"
-            className="inline-block bg-white text-blue-600 font-medium py-3 px-8 rounded-lg hover:bg-gray-100 transition-colors"
+            className="inline-block bg-white text-primary-600 font-medium py-3 px-8 rounded-lg hover:bg-gray-100 transition-colors"
           >
             Go to Dashboard
           </Link>
         ) : (
           <Link
             to="/register"
-            className="inline-block bg-white text-blue-600 font-medium py-3 px-8 rounded-lg hover:bg-gray-100 transition-colors"
+            className="inline-block bg-white text-primary-600 font-medium py-3 px-8 rounded-lg hover:bg-gray-100 transition-colors"
           >
             Create Free Account
           </Link>

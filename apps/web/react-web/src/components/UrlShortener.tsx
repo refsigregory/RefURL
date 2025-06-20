@@ -48,15 +48,15 @@ export const UrlShortener: React.FC = () => {
   return (
     <div className="max-w-4xl mx-auto">
       {/* Main Container with Gradient Background */}
-      <div className="relative overflow-hidden bg-gradient-to-br from-blue-50 via-white to-indigo-50 rounded-3xl shadow-2xl border border-blue-100/50">
+      <div className="relative overflow-hidden bg-gradient-to-br from-primary-50 via-white to-primary-100/30 rounded-3xl shadow-2xl border border-primary-100/50">
         {/* Decorative Elements */}
-        <div className="absolute top-0 left-0 w-32 h-32 bg-gradient-to-br from-blue-400/20 to-transparent rounded-full blur-3xl"></div>
-        <div className="absolute bottom-0 right-0 w-40 h-40 bg-gradient-to-tl from-indigo-400/20 to-transparent rounded-full blur-3xl"></div>
+        <div className="absolute top-0 left-0 w-32 h-32 bg-gradient-to-br from-primary-400/20 to-transparent rounded-full blur-3xl"></div>
+        <div className="absolute bottom-0 right-0 w-40 h-40 bg-gradient-to-tl from-primary-400/20 to-transparent rounded-full blur-3xl"></div>
         
         <div className="relative p-8 md:p-12">
           {/* Header */}
           <div className="text-center mb-8">
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl mb-4 shadow-lg">
+            <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-primary-500 to-primary-600 rounded-2xl mb-4 shadow-lg">
               <LinkIcon className="h-8 w-8 text-white" />
             </div>
             <h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent mb-2">
@@ -81,7 +81,7 @@ export const UrlShortener: React.FC = () => {
                   value={formData.original_url}
                   onChange={(e) => setFormData({ ...formData, original_url: e.target.value })}
                   placeholder={`example.com/very-long-url`}
-                  className="w-full px-6 py-4 text-lg border-2 border-gray-200 rounded-2xl focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition-all duration-300 bg-white/80 backdrop-blur-sm placeholder-gray-400 group-hover:border-gray-300"
+                  className="w-full px-6 py-4 text-lg border-2 border-gray-200 rounded-2xl focus:border-primary-500 focus:ring-4 focus:ring-primary-100 transition-all duration-300 bg-white/80 backdrop-blur-sm placeholder-gray-400 group-hover:border-gray-300"
                   required
                 />
                 <div className="absolute inset-y-0 right-0 flex items-center pr-4">
@@ -101,7 +101,7 @@ export const UrlShortener: React.FC = () => {
                 value={formData.title}
                 onChange={(e) => setFormData({ ...formData, title: e.target.value })}
                 placeholder="My shortened URL"
-                className="w-full px-6 py-4 text-lg border-2 border-gray-200 rounded-2xl focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition-all duration-300 bg-white/80 backdrop-blur-sm placeholder-gray-400 group-hover:border-gray-300"
+                className="w-full px-6 py-4 text-lg border-2 border-gray-200 rounded-2xl focus:border-primary-500 focus:ring-4 focus:ring-primary-100 transition-all duration-300 bg-white/80 backdrop-blur-sm placeholder-gray-400 group-hover:border-gray-300"
               />
             </div>
 
@@ -109,9 +109,9 @@ export const UrlShortener: React.FC = () => {
             <button
               type="submit"
               disabled={shortenMutation.isPending || !formData.original_url}
-              className="w-full group relative overflow-hidden bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold py-4 px-8 rounded-2xl transition-all duration-300 transform hover:scale-[1.02] hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none disabled:shadow-none"
+              className="w-full group relative overflow-hidden bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 text-white font-semibold py-4 px-8 rounded-2xl transition-all duration-300 transform hover:scale-[1.02] hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none disabled:shadow-none"
             >
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-400/20 to-indigo-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-primary-400/20 to-primary-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               <div className="relative flex items-center justify-center space-x-2">
                 {shortenMutation.isPending ? (
                   <>

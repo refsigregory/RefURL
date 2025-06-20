@@ -26,7 +26,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
               <div className="flex h-16 justify-between">
                 <div className="flex">
                   <div className="flex flex-shrink-0 items-center">
-                    <Link to="/" className="text-xl font-bold text-blue-600">
+                    <Link to="/" className="text-xl font-bold text-primary-600">
                       RefURL
                     </Link>
                   </div>
@@ -38,7 +38,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
                           to={item.href}
                           className={classNames(
                             location.pathname === item.href
-                              ? 'border-blue-500 text-gray-900'
+                              ? 'border-primary-500 text-gray-900'
                               : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700',
                             'inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium'
                           )}
@@ -53,9 +53,9 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
                   {isAuthenticated ? (
                     <Menu as="div" className="relative ml-3">
                       <div>
-                        <Menu.Button className="flex rounded-full bg-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                        <Menu.Button className="flex rounded-full bg-white text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2">
                           <span className="sr-only">Open user menu</span>
-                          <div className="h-8 w-8 rounded-full bg-blue-500 flex items-center justify-center text-white font-medium">
+                          <div className="h-8 w-8 rounded-full bg-primary-500 flex items-center justify-center text-white font-medium">
                             {user?.name.charAt(0).toUpperCase()}
                           </div>
                         </Menu.Button>
@@ -100,7 +100,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
                       </Link>
                       <Link
                         to="/register"
-                        className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200"
+                        className="bg-primary-600 hover:bg-primary-700 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200"
                       >
                         Sign up
                       </Link>
@@ -108,7 +108,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
                   )}
                 </div>
                 <div className="-mr-2 flex items-center sm:hidden">
-                  <Disclosure.Button className="inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500">
+                  <Disclosure.Button className="inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary-500">
                     <span className="sr-only">Open main menu</span>
                     {open ? (
                       <XMarkIcon className="block h-6 w-6" aria-hidden="true" />
@@ -131,7 +131,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
                         to={item.href}
                         className={classNames(
                           location.pathname === item.href
-                            ? 'bg-blue-50 border-blue-500 text-blue-700'
+                            ? 'bg-primary-50 border-primary-500 text-primary-700'
                             : 'border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700',
                           'block border-l-4 py-2 pl-3 pr-4 text-base font-medium'
                         )}
