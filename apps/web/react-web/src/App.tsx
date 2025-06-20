@@ -8,6 +8,7 @@ import { Login } from './pages/Login';
 import { Register } from './pages/Register';
 import { Dashboard } from './pages/Dashboard';
 import { Urls } from './pages/Urls';
+import { UrlRedirect } from './components/UrlRedirect';
 
 // Create a client
 const queryClient = new QueryClient({
@@ -29,6 +30,7 @@ function App() {
             <Route path="/" element={<Layout><Home /></Layout>} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/go/:shortCode" element={<UrlRedirect />} />
             
             {/* Protected routes */}
             <Route
