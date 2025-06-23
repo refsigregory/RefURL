@@ -100,7 +100,6 @@ export const Dashboard: React.FC = () => {
   };
 
   const totalClicks = urls.reduce((sum, url) => sum + Number(url.clicks), 0);
-  console.log(urls);
 
   const recentUrls = urls.slice(0, 5);
 
