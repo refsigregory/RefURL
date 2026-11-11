@@ -1,6 +1,6 @@
 # RefURL - URL Shortener Service
 
-A multi-backend URL shortener service with support for multiple frameworks. This project demonstrates how to build the same service using different backend technologies.
+A multi-backend URL shortener service with support for multiple frameworks. This project demonstrates how to build the same service using different backend technologies. Target is to become baseline to start project with specific language and a comparison each technology.
 
 ## Features
 
@@ -11,14 +11,23 @@ A multi-backend URL shortener service with support for multiple frameworks. This
 - Shared database schema and migrations
 - Common security practices
 
+## Conventions
+- Prefer to use kebab-case on every file name and folder (but depends on best pratice each language)
+- @/ maps to src/ (tsconfig.app.json and vite.config.ts) [FE]
+- New code starts in features/. Move it to components/ or lib/ only when a second feature needs it. (Feature-based) [FE]
+- Files are kebab-case (use-login.ts, auth-layout.tsx); components are PascalCase. [FE]
+- Each backend must compatible with same API Contract (easy swapable).
+- Must follow best pratices, secure, professional and entriprise level code.
+
 ## Backend Implementations
 
 - [x] Node JS - Express (TypeScript) ([setup instructions](./apps/api/express-typescript-api/README.md))
 - [x] Go
+- [ ] Rust: axum
 - [ ] Java: Spring Boot (Incompleted)
+- [ ] .NET: Minimal API
 - [ ] PHP: Laravel
 - [ ] Python: Flask
-- [ ] Rust
 
 > **Each backend has its own README with setup and development instructions. Please refer to the appropriate README for details.**
 
